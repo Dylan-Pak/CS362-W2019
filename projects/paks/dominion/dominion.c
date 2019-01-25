@@ -1286,7 +1286,7 @@ int smithyR(struct gameState *state, int handPos)
 {
     int i;
     int currentPlayer = whoseTurn(state);
-    //Bug 2: instead of drawing 3, introducing a bug where 4 cards are drawn instead
+    //Bug 2: instead of drawing 3, introducing a bug where 4 cards are drawn instead 
     for (i = 0; i < 4; i++)
   {
     drawCard(currentPlayer, state);
