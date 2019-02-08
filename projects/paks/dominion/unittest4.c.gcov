@@ -1,0 +1,50 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include "rngs.h"
+        -:    4:#include <stdio.h>
+        -:    5:#include <math.h>
+        -:    6:#include <stdlib.h>
+        -:    7:
+        -:    8://Unit testing the getCost function. Just checking the cost of a few cards instead of the whole set...
+function main called 1 returned 100% blocks executed 60%
+        1:    9:int main()
+        -:   10:{
+        1:   11:	int cardNumber = embargo;
+        1:   12:	if(getCost(cardNumber) != 2) //should return 2
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:   13:	{ 
+    #####:   14:		printf("Embargo TEST FAILED\n");
+call    0 never executed
+    #####:   15:		return 0;
+        -:   16:	}
+        1:   17:	cardNumber = silver;
+        1:   18:	if(getCost(cardNumber) != 3) //should return 3
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:   19:	{ 
+    #####:   20:		printf("Silver TEST FAILED\n");
+call    0 never executed
+    #####:   21:		return 0;
+        -:   22:	}
+        1:   23:	cardNumber = cutpurse;
+        1:   24:	if(getCost(cardNumber) != 4) //should return 4
+call    0 returned 100%
+branch  1 taken 0% (fallthrough)
+branch  2 taken 100%
+        -:   25:	{
+    #####:   26:		printf("Cutpurse TEST FAILED\n");
+call    0 never executed
+    #####:   27:		return 0;
+        -:   28:	}
+        1:   29:	printf("getCost TEST SUCCESSFULLY COMPLETED\n");
+call    0 returned 100%
+        1:   30:	return 0;
+        -:   31:}

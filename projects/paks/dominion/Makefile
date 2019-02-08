@@ -1,4 +1,4 @@
-CFLAGS= -Wall -fpic -coverage -lm -std=c99
+CFLAGS = -Wall -fpic -coverage -lm
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -8,7 +8,7 @@ dominion.o: dominion.h dominion.c rngs.o
 
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
-#To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
+
 testDrawCard: testDrawCard.c dominion.o rngs.o
 	gcc  -o testDrawCard -g  testDrawCard.c dominion.o rngs.o $(CFLAGS)
 
@@ -35,5 +35,42 @@ player: player.c interface.o
 
 all: playdom player 
 
+unittest1: playdom player unittest1.c dominion.h
+	gcc -o unittest1 unittest1.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+unittest2: playdom player unittest2.c dominion.h
+	gcc -o unittest2 unittest2.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+unittest3: playdom player unittest3.c dominion.h
+	gcc -o unittest3 unittest3.c -g dominion.o rngs.o interface.o $(CFLAGS)
+
+unittest4: playdom player unittest4.c dominion.h
+	gcc -o unittest4 unittest4.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+cardtest1: playdom player cardtest1.c dominion.h
+	gcc -o cardtest1 cardtest1.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+cardtest2: playdom player cardtest2.c dominion.h
+	gcc -o cardtest2 cardtest2.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+cardtest3: playdom player cardtest3.c dominion.h
+	gcc -o cardtest3 cardtest3.c -g dominion.o rngs.o interface.o $(CFLAGS)
+	
+cardtest4: playdom player cardtest4.c dominion.h
+	gcc -o cardtest4 cardtest4.c -g dominion.o rngs.o interface.o $(CFLAGS)
+
+runall:
+	./unittest1 > unittestresults.out
+	./unittest2 >> unittestresults.out
+	./unittest3 >> unittestresults.out
+	./unittest4 >> unittestresults.out
+	./cardtest1 >> unittestresults.out
+	./cardtest2 >> unittestresults.out
+	./cardtest3 >> unittestresults.out
+	./cardtest4 >> unittestresults.out
+	gcov -f -b dominion.c >> unittestresults.out
+	
+unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 runall
+
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe

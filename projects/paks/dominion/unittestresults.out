@@ -1,0 +1,179 @@
+playCard TEST SUCESSFULLY COMPLETED
+
+updateCoins TEST SUCCESSFULLY COMPLETED
+
+compare TEST SUCCESSFULLY COMPLETED
+
+getCost TEST SUCCESSFULLY COMPLETED
+
+ADVENTURER TESTS:
+
+PASSED: CARD EFFECT
+FAILED: HANDS DOES NOT MATCH
+FAILED: CARDS ARE NOT TREASURE
+Adventurer Tests FAILED
+
+SMITHY TESTS:
+
+PASSED: CARD EFFECT
+FAILED: WRONG NUMBER OF CARDS IN HAND
+PASSED: SMITHY WAS DISCARDED
+Smithy Tests FAILED
+
+VILLAGE TESTS:
+
+PASSED: CARD EFFECTS
+PASSED: CORRECT NUMBER OF CARDS IN HAND
+FAILED: WRONG NUMBER OF ACTIONS
+Village Tests FAILED
+
+COUNCIL ROOM TESTS:
+
+PASSED: CARD EFFECT
+PASSED: CORRECT NUMBER OF CARDS IN HAND
+PASSED: COUCIL ROOM WAS DISCARDED
+PASSED: OPPONENT HAS NOT DRAWN
+Council Room PASSED ALL TESTS
+
+Function 'stewardR'
+Lines executed:0.00% of 11
+No branches
+No calls
+
+Function 'villageR'
+Lines executed:100.00% of 6
+No branches
+No calls
+
+Function 'mineR'
+Lines executed:0.00% of 16
+No branches
+No calls
+
+Function 'smithyR'
+Lines executed:100.00% of 6
+No branches
+No calls
+
+Function 'adventurerR'
+Lines executed:100.00% of 18
+No branches
+No calls
+
+Function 'updateCoins'
+Lines executed:100.00% of 11
+No branches
+No calls
+
+Function 'gainCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'discardCard'
+Lines executed:84.62% of 13
+No branches
+No calls
+
+Function 'cardEffect'
+Lines executed:11.76% of 221
+No branches
+No calls
+
+Function 'getCost'
+Lines executed:14.04% of 57
+No branches
+No calls
+
+Function 'drawCard'
+Lines executed:77.27% of 22
+No branches
+No calls
+
+Function 'getWinners'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'scoreFor'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'isGameOver'
+Lines executed:0.00% of 10
+No branches
+No calls
+
+Function 'endTurn'
+Lines executed:0.00% of 20
+No branches
+No calls
+
+Function 'whoseTurn'
+Lines executed:100.00% of 2
+No branches
+No calls
+
+Function 'fullDeckCount'
+Lines executed:0.00% of 9
+No branches
+No calls
+
+Function 'supplyCount'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'handCard'
+Lines executed:100.00% of 3
+No branches
+No calls
+
+Function 'numHandCards'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'buyCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'playCard'
+Lines executed:92.86% of 14
+No branches
+No calls
+
+Function 'shuffle'
+Lines executed:100.00% of 16
+No branches
+No calls
+
+Function 'initializeGame'
+Lines executed:83.87% of 62
+No branches
+No calls
+
+Function 'kingdomCards'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'newGame'
+Lines executed:0.00% of 3
+No branches
+No calls
+
+Function 'compare'
+Lines executed:100.00% of 6
+No branches
+No calls
+
+File 'dominion.c'
+Lines executed:31.60% of 617
+Branches executed:37.35% of 415
+Taken at least once:23.13% of 415
+Calls executed:28.00% of 100
+Creating 'dominion.c.gcov'
+
