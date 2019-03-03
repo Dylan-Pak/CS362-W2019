@@ -1266,9 +1266,9 @@ int adventurerR(struct gameState *state)
   }
   drawCard(currentPlayer, state);
   cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-  //Bug 1:Lets introduce a bug where a copper card is not considered a treasure. This will not add to the drawnTreasure counter.
-  if (/*cardDrawn == copper || */cardDrawn == silver || cardDrawn == gold)
-    drawntreasure++;
+  //Bug 1:Lets introduce a bug where 1 drawn treasures means drawing two cards. 
+  if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    drawntreasure = drawntreasure + 2;
   else{
     temphand[z]=cardDrawn;
     state->handCount[currentPlayer]--; //this should just remove the top card (the most recently drawn one).

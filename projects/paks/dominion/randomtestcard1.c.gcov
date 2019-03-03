@@ -1,0 +1,198 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <assert.h>
+        -:    2:#include "dominion.h"
+        -:    3:#include "dominion_helpers.h"
+        -:    4:#include <math.h>
+        -:    5:#include "rngs.h"
+        -:    6:#include <string.h>
+        -:    7:#include <stdio.h>
+        -:    8:#include <stdlib.h>
+        -:    9:#include <time.h>
+        -:   10:
+        -:   11:#define CARD_TEST "Council Room"
+        -:   12:#define ITERATIONS 10000
+        -:   13:
+        -:   14://global vairables to count failures
+        -:   15:int failCardEffect = 0;              
+        -:   16:int failDiscardCard = 0;             
+        -:   17:int failDrawCard = 0;                
+        -:   18:int failNumBuys = 0;                 
+        -:   19:int failDeckHandCountActive = 0;    
+        -:   20:int failDeckHandCountOpponent = 0;  
+        -:   21:
+    10000:   22:void randomCouncilRoomTest(int p, struct gameState *game)
+        -:   23:{
+        -:   24:    struct gameState pTest;   // Allows for manipulation of the gameState during test.
+    10000:   25:    int bonus = 0;          // Counts value of bonus.
+        -:   26:    int resultCE, resultDR1, resultDR2, resultDR3, resultDR4, resultDRO, resultDI;
+        -:   27:    int i;                  // Loop counter.
+        -:   28:
+        -:   29:    // Sets up initial gameState prior to manipulation during test.
+    10000:   30:    memcpy(&pTest, game, sizeof(struct gameState));
+        -:   31:
+        -:   32:    // Invokes and stores the council_room case from cardEffect. 
+    10000:   33:    resultCE = cardEffect(council_room, 0, 0, 0, game, 0, &bonus);
+        -:   34:
+        -:   35:    // Draws 4 cards, per the Council Room specification.
+    10000:   36:    resultDR1 = drawCard(p, &pTest);
+    10000:   37:    resultDR2 = drawCard(p, &pTest);
+    10000:   38:    resultDR3 = drawCard(p, &pTest);
+    10000:   39:    resultDR4 = drawCard(p, &pTest);
+        -:   40:
+        -:   41:    // Increments number of buys (+1), per the Council Room specification.
+    10000:   42:    pTest.numBuys++;
+        -:   43:
+        -:   44:    // Draws +1 card for each opponent, per the Council Room specification.
+    40017:   45:    for (i = 0; i < pTest.numPlayers; i++)
+        -:   46:    {
+    30017:   47:        if (i != p) // Draws only for the opponent players.
+        -:   48:        {
+    20017:   49:            resultDRO = drawCard(i, &pTest);
+        -:   50:            // Tests for failure of drawcard. 
+   20017*:   51:            if (resultDRO == -1 && pTest.deckCount[i] != 0)
+        -:   52:            {
+    #####:   53:                failDrawCard++;
+        -:   54:            }
+        -:   55:        }
+        -:   56:    }
+        -:   57:
+        -:   58:    // Places used Council Room card in the discard pile.
+    10000:   59:    resultDI = discardCard(0, p, &pTest, 0);
+        -:   60:
+        -:   61:    // Counts expected hand and deck. 
+    10000:   62:    int eHandCount = game->handCount[p];
+    10000:   63:    int eDeckCount = game->deckCount[p];
+        -:   64:
+        -:   65:    // Counts actual hand and deck. 
+    10000:   66:    int aHandCount = pTest.handCount[p];
+    10000:   67:    int aDeckCount = pTest.deckCount[p];
+        -:   68:
+        -:   69:    // Tests if resulting numBuys matches expected numBuys. 
+    10000:   70:    if (pTest.numBuys != game->numBuys)
+        -:   71:    {
+    #####:   72:        failNumBuys++;
+        -:   73:    }
+        -:   74:
+        -:   75:    // Tests for failure of first drawcard. 
+   10000*:   76:    if (resultDR1 == -1 && pTest.deckCount[p] != 0)
+        -:   77:    {
+    #####:   78:        failDrawCard++;
+        -:   79:    }
+        -:   80:    // Tests for failure of second drawcard. 
+   10000*:   81:    if (resultDR2 == -1 && pTest.deckCount[p] != 0)
+        -:   82:    {
+    #####:   83:        failDrawCard++;
+        -:   84:    }
+        -:   85:    // Tests for failure of third drawcard. 
+   10000*:   86:    if (resultDR3 == -1 && pTest.deckCount[p] != 0)
+        -:   87:    {
+    #####:   88:        failDrawCard++;
+        -:   89:    }
+        -:   90:    // Tests for failure of fourth drawcard. 
+   10000*:   91:    if (resultDR4 == -1 && pTest.deckCount[p] != 0)
+        -:   92:    {
+    #####:   93:        failDrawCard++;
+        -:   94:    }
+        -:   95:
+        -:   96:    // Tests cardEffect() and discardCard() for failure. 
+    10000:   97:    if (!(resultCE == 0 && resultDI == 0))
+        -:   98:    {
+    #####:   99:        if (resultCE)  // Tests result of cardEffect().
+        -:  100:        {
+    #####:  101:            failCardEffect++;
+        -:  102:        }
+    #####:  103:        if (resultDI)  // Tests result of discardCard().
+        -:  104:        {
+    #####:  105:            failDiscardCard++;
+        -:  106:        }
+        -:  107:    }
+        -:  108:
+        -:  109:    // Tests if expected values match actual values for hand and deck of active player. 
+    10000:  110:    if (!(eHandCount == aHandCount && eDeckCount == aDeckCount))
+        -:  111:    {
+    #####:  112:        failDeckHandCountActive++;
+        -:  113:    }
+        -:  114:
+        -:  115:    // Tests if expected values match actual values for hand and deck of each opponent. 
+    40017:  116:    for (i = 0; i < pTest.numPlayers; i++)
+        -:  117:    {
+    30017:  118:        if (i != p)
+        -:  119:        {
+    20017:  120:            if (!(game->handCount[i] == pTest.handCount[i] &&
+    20017:  121:                  game->deckCount[i] == pTest.deckCount[i]))
+        -:  122:            {
+    #####:  123:                      failDeckHandCountOpponent++;
+        -:  124:            }
+        -:  125:        }
+        -:  126:    }
+    10000:  127:}
+        -:  128:
+        1:  129:int main ()
+        -:  130:{
+        1:  131:    printf("RANDOM TEST: %s\n", CARD_TEST);
+        -:  132:
+        -:  133:    int i, j;           
+        -:  134:    int player;         
+        -:  135:    int deckCount;      
+        -:  136:    int handCount;      
+        -:  137:    int discardCount;   
+        1:  138:    int players[] = {2, 3, 4};  //total number of players
+        -:  139:    struct gameState G; 
+        1:  140:    srand(time(NULL));  // Provides random seed from system time.
+        -:  141:
+        -:  142:    // Initializes gameState to a random value. Referenced from testDrawCard.c.
+    10001:  143:    for (i = 0; i < ITERATIONS; i++)
+        -:  144:    {
+263010000:  145:        for (j = 0; j < sizeof(struct gameState); j++)
+        -:  146:        {
+263000000:  147:            ((char*)&G)[j] = floor(Random() * 256); // Provides random values for initial gameState.
+        -:  148:        }
+        -:  149:        // generating random values for initialized variables
+    10000:  150:        G.numPlayers = players[rand() % 3];
+    10000:  151:        G.numBuys = 1;
+    10000:  152:        G.playedCardCount = floor(Random() * (MAX_DECK - 1));
+    10000:  153:        player = G.numPlayers - 2;
+    10000:  154:        deckCount = floor(Random() * MAX_DECK);
+    10000:  155:        handCount = floor(Random() * MAX_HAND);
+    10000:  156:        discardCount = floor(Random() * MAX_DECK);
+    10000:  157:        G.whoseTurn = player;
+        -:  158:
+        -:  159:        // initializing deckcount, handcount, and discardcount
+    40017:  160:        for (j = 0; j < G.numPlayers; j++)
+        -:  161:        {
+    30017:  162:            G.deckCount[j] = deckCount;
+    30017:  163:            G.handCount[j] = handCount;
+    30017:  164:            G.discardCount[j] = discardCount;
+        -:  165:        }
+        -:  166:
+        -:  167:        // Calls the random test function
+    10000:  168:        randomCouncilRoomTest(player, &G);
+        -:  169:    }
+        -:  170:
+        -:  171:    // Counts total number of failures for all tests.
+        2:  172:    int totalFailCount = failCardEffect + failDiscardCard + failDrawCard
+        1:  173:                    + failDeckHandCountActive + failNumBuys;
+        -:  174:
+        1:  175:    printf ("\nFAILED: %d TESTS\n\n", totalFailCount);
+        -:  176:    
+        1:  177:    if (failDrawCard > 0)
+    #####:  178:        printf("\nFAILED: %d DRAW CARD TESTS\n", failDrawCard);   
+        1:  179:    if (failCardEffect > 0)
+    #####:  180:        printf("\nFAILED: %d CARD EFFECT TESTS\n\n", failCardEffect);
+        1:  181:    if (failDiscardCard > 0)
+    #####:  182:        printf("\nFAILED: %d DISCARD TESTS\n", failDiscardCard);  
+        1:  183:    if (failNumBuys > 0)
+    #####:  184:        printf("\nFAILED: %d NUMBER BUYS TESTS\n", failNumBuys);
+        1:  185:    if (failDeckHandCountOpponent > 0)
+    #####:  186:        printf("\nFAILED: %d OPPONENT HAND TESTS\n", failDeckHandCountOpponent);
+        1:  187:    if (failDeckHandCountActive > 0)
+    #####:  188:        printf("\nFAILED: %d YOUR HAND TESTS\n", failDeckHandCountActive);
+        1:  189:    printf("\n");
+        -:  190:    
+        1:  191:    return 0;
+        -:  192:}
+        -:  193:
