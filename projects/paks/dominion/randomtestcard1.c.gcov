@@ -47,13 +47,13 @@
     10000:   42:    pTest.numBuys++;
         -:   43:
         -:   44:    // Draws +1 card for each opponent, per the Council Room specification.
-    40017:   45:    for (i = 0; i < pTest.numPlayers; i++)
+    40057:   45:    for (i = 0; i < pTest.numPlayers; i++)
         -:   46:    {
-    30017:   47:        if (i != p) // Draws only for the opponent players.
+    30057:   47:        if (i != p) // Draws only for the opponent players.
         -:   48:        {
-    20017:   49:            resultDRO = drawCard(i, &pTest);
+    20057:   49:            resultDRO = drawCard(i, &pTest);
         -:   50:            // Tests for failure of drawcard. 
-   20017*:   51:            if (resultDRO == -1 && pTest.deckCount[i] != 0)
+   20057*:   51:            if (resultDRO == -1 && pTest.deckCount[i] != 0)
         -:   52:            {
     #####:   53:                failDrawCard++;
         -:   54:            }
@@ -93,7 +93,7 @@
     #####:   88:        failDrawCard++;
         -:   89:    }
         -:   90:    // Tests for failure of fourth drawcard. 
-   10000*:   91:    if (resultDR4 == -1 && pTest.deckCount[p] != 0)
+    10000:   91:    if (resultDR4 == -1 && pTest.deckCount[p] != 0)
         -:   92:    {
     #####:   93:        failDrawCard++;
         -:   94:    }
@@ -118,12 +118,12 @@
         -:  113:    }
         -:  114:
         -:  115:    // Tests if expected values match actual values for hand and deck of each opponent. 
-    40017:  116:    for (i = 0; i < pTest.numPlayers; i++)
+    40057:  116:    for (i = 0; i < pTest.numPlayers; i++)
         -:  117:    {
-    30017:  118:        if (i != p)
+    30057:  118:        if (i != p)
         -:  119:        {
-    20017:  120:            if (!(game->handCount[i] == pTest.handCount[i] &&
-    20017:  121:                  game->deckCount[i] == pTest.deckCount[i]))
+    20057:  120:            if (!(game->handCount[i] == pTest.handCount[i] &&
+    20057:  121:                  game->deckCount[i] == pTest.deckCount[i]))
         -:  122:            {
     #####:  123:                      failDeckHandCountOpponent++;
         -:  124:            }
@@ -162,11 +162,11 @@
     10000:  157:        G.whoseTurn = player;
         -:  158:
         -:  159:        // initializing deckcount, handcount, and discardcount
-    40017:  160:        for (j = 0; j < G.numPlayers; j++)
+    40057:  160:        for (j = 0; j < G.numPlayers; j++)
         -:  161:        {
-    30017:  162:            G.deckCount[j] = deckCount;
-    30017:  163:            G.handCount[j] = handCount;
-    30017:  164:            G.discardCount[j] = discardCount;
+    30057:  162:            G.deckCount[j] = deckCount;
+    30057:  163:            G.handCount[j] = handCount;
+    30057:  164:            G.discardCount[j] = discardCount;
         -:  165:        }
         -:  166:
         -:  167:        // Calls the random test function
